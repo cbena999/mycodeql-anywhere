@@ -356,7 +356,8 @@ function New-CodeQLScan {
             if ($null -ne $env:BUILD_SOURCEBRANCH) {$ref = $env:BUILD_SOURCEBRANCH} else {$ref = $(git symbolic-ref HEAD)}
             if ($null -ne $env:BUILD_SOURCEVERSION) {$sha = $env:BUILD_SOURCEVERSION} else {$sha = $(git rev-parse --verify HEAD)}
             $splat = @{
-                owner = $owner
+                token, $token
+		owner = $owner
                 repository = $repositoryName
                 ref = $ref
                 startedAt = $startedAt
@@ -365,9 +366,15 @@ function New-CodeQLScan {
                 checkoutUri = $sourceRoot
                 toolName = 'CodeQL'
             }
-            if ($PSBoundParameters.ContainsKey('token')) {$splat.Add('token', $token)}
+	    
+     	    Write-Host "  splat:$splat"
+     	    Write-Host "token:$token, owner:$owner , repositoryName:$repositoryName ,  ref:$ref, startedAt:$startedAt, sha:$sha,  pathToSarif: '$language-results.sarif' , sourceRoot:$sourceRoot"
+	  
+            # if ($PSBoundParameters.ContainsKey('token')) {$splat.Add('token', $token)}
             Write-Host "Uploading SARIF results for $owner / $repositoryName for $language to GitHub Code Scanning."
-            Set-GitHubRepositorySarifResults @splat
+            
+	    Set-GitHubRepositorySarifResults @splat
+     
         }
         Get-ChildItem -Path $sourceRoot -Filter "*-results.sarif.gz*" | Remove-Item -Force
         if (-not $keepSarif) {Get-ChildItem -Path $sourceRoot -Filter "*-results.sarif" | Remove-Item -Force}

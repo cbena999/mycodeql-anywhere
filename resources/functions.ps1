@@ -134,9 +134,9 @@ function Set-GitHubRepositorySarifResults {
         [Parameter(Mandatory = $True)] [string] $token ,
         [Parameter(Mandatory = $True)] [string] $owner,
         [Parameter(Mandatory = $True)] [string] $repository,
-        [Parameter(Mandatory = $True)] [string] $ref,
+	    [Parameter(Mandatory = $True)] [string] $ref,
+	    [Parameter(Mandatory = $True)] [string] $startedAt,
         [Parameter(Mandatory = $True)] [string] $commitSha,
-        [Parameter(Mandatory = $True)] [string] $startedAt,
         [Parameter(Mandatory = $True)] [string] $pathToSarif,
         [Parameter(Mandatory = $True)] [string] $checkoutUri,
         [Parameter(Mandatory = $True)] [string] $toolName

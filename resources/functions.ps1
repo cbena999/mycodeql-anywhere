@@ -344,7 +344,7 @@ function New-CodeQLScan {
         }
     }
     
-    Write-Host "Analyzing CodeQL databases."
+    Write-Host "Analyzing CodeQL databases cbm1."
     [array]$codeQLDatabases = Get-ChildItem -Path "$codeQLDatabaseDirectory/inpterpretted" -Directory -Exclude log, working
     [array]$codeQLDatabases += Get-Item -Path "$codeQLDatabaseDirectory/compiled"
     foreach ($database in $codeQLDatabases) {
@@ -367,8 +367,8 @@ function New-CodeQLScan {
                 toolName = 'CodeQL'
             }
 	    
-     	    Write-Host "  splat:$splat"
-     	    Write-Host "token:$token, owner:$owner , repositoryName:$repositoryName ,  ref:$ref, startedAt:$startedAt, sha:$sha,  pathToSarif: '$language-results.sarif' , sourceRoot:$sourceRoot"
+     	    Write-Host " cbm 2 splat:$splat"
+     	    Write-Host "cbm 3 token:$token, owner:$owner , repositoryName:$repositoryName ,  ref:$ref, startedAt:$startedAt, sha:$sha,  pathToSarif: '$language-results.sarif' , sourceRoot:$sourceRoot"
 	  
             # if ($PSBoundParameters.ContainsKey('token')) {$splat.Add('token', $token)}
             Write-Host "Uploading SARIF results for $owner / $repositoryName for $language to GitHub Code Scanning."
